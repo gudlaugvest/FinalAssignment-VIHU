@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getGameById, updateGame } from "../../../lib/gameStore";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 
 export default async function game(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -11,7 +8,7 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
         return res.status(400).send("Id parameter required.");
       }
 
-      const game = await prisma.getGameById(req.query.id.toString());
+      const game = await getGameById(req.query.id.toString());
 
       if (!game) {
         return res.status(404);
@@ -25,7 +22,7 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
       }
 
       try {
-        const updatedGame = await prisma.updateGame(
+        const updatedGame = await updateGame(
           req.query.id.toString(),
           req.body.moves
         );
@@ -34,9 +31,10 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
       } catch (error) {
         return res.status(500).send("Something went horribly wrong");
       }
-      
+
     default:
       return res.status(500).send("Method not allowed");
   }
+
 
 }
