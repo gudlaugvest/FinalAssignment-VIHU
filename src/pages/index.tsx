@@ -21,9 +21,9 @@ const Home: NextPage = () => {
         playerName,
         secondPlayerName,
       });
-      router.push(`/api/game/${data.id}`);
+      router.push(`/game/${data.id}`);
     } catch (error) {
-      throw error;
+      setShowError(true);
     }
   }
 
