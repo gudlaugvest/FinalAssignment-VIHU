@@ -1,6 +1,5 @@
 name: CI
-env:
-  DATABASE_URL: ${{secrets.DATABASE_URL}}
+
 on:
   push:
     branches:
