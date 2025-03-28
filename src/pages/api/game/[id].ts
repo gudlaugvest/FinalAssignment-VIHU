@@ -35,4 +35,6 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
     default:
       return res.status(500).send("Method not allowed");
   }
+
+
 }

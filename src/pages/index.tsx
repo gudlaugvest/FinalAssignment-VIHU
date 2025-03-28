@@ -14,6 +14,7 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   async function createGame() {
+    setIsCreating(true);
     try {
       const { data } = await axios.post("/api/new", {
         playerName,
@@ -31,18 +32,9 @@ const Home: NextPage = () => {
       <div className={styles.grid}>
         <form
           className={styles.form}
-          onSubmit={async (event) => {
-            event.preventDefault();
-            setIsCreating(true);
-            try {
-              const id = await createGame();
-
-              router.push("/game/" + id);
-            } catch (error) {
-              console.log("failed to create ", error);
-            } finally {
-              setIsCreating(false);
-            }
+          onSubmit={(e) => {
+            e.preventDefault();
+            createGame();
           }}
         >
           <input
