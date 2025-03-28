@@ -20,7 +20,7 @@ export function calculateWinner(
       return squares[a];
     }
   }
-  return null;
+  return isDraw(squares) ? "Draw" : null;
 }
 
 export function getPlayerNameFromSign(
@@ -50,4 +50,9 @@ export function getWhosTurnItIs(moves: Sign[] | string[]): Sign | string {
 
 export function getRandomPepTalk() {
   return pepTalks[Math.floor(Math.random() * pepTalks.length)];
+}
+
+export function isDraw(squares: (Sign | null | string)[]): boolean {
+  if (!squares.every(square => square !== null && square !== undefined)) return false;
+  return !calculateWinner(squares as (Sign | string)[]);
 }
