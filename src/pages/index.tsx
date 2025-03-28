@@ -10,6 +10,7 @@ const Home: NextPage = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [secondPlayerName, setSecondPlayerName] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const router = useRouter();
 
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
         playerName,
         secondPlayerName,
       });
-      return data.id;
+      router.push(`/api/game/${data.id}`);
     } catch (error) {
       throw error;
     }

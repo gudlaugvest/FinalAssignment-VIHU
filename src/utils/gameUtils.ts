@@ -20,7 +20,7 @@ export function calculateWinner(
       return squares[a];
     }
   }
-  return isDraw(squares) ? "Draw" : null;
+  return null;
 }
 
 export function getPlayerNameFromSign(
