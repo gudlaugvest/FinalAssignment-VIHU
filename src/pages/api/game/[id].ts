@@ -17,6 +17,10 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
       return res.status(200).json(game);
 
     case "PUT":
+      if (!req.query.id) {
+        return res.status(400).send("Id parameter required.");
+      }
+
       try {
         const updatedGame = await updateGame(
           req.query.id.toString(),
