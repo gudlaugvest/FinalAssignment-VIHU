@@ -53,6 +53,6 @@ export function getRandomPepTalk() {
 }
 
 export function isDraw(squares: (Sign | null | string)[]): boolean {
-  return squares.every(square => square !== null && square !== undefined) && !calculateWinner(squares);
+  if (!squares.every(square => square !== null && square !== undefined)) return false;
+  return !calculateWinner(squares as (Sign | string)[]);
 }
-
