@@ -10,7 +10,7 @@ on:
 
 
 jobs:
-  Deploy-Preview:,
+  Deploy-Preview:
     runs-on: ubuntu-latest
 
     steps:
