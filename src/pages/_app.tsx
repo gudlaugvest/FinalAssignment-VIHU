@@ -2,7 +2,8 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import "../../datadog-rum";
+import { datadogRum } from '@datadog/browser-rum';
+import { reactPlugin } from '@datadog/browser-rum-react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,9 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
-
-import { datadogRum } from '@datadog/browser-rum';
-import { reactPlugin } from '@datadog/browser-rum-react';
 
 datadogRum.init({
     applicationId: process.env.NEXT_PUBLIC_DATADOG_APPLICATION_ID as string,
