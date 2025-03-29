@@ -34,10 +34,15 @@ const GamePage = () => {
         <Board
           moves={game.moves}
           onMove={async (moves) => {
-            const { data } = await axios.put("/api/game/" + router.query.id, {
-              moves,
-            });
-            setGame(data);
+            try {
+              const { data } = await axios.put(`/api/game/${router.query.id}`, {
+                moves,
+              });
+              setGame(data);
+            } catch (error) {
+              console.error('Failed to update game:', error);
+              alert('Failed to make move. Please try again.');
+            }
           }}
         />
       </div>
