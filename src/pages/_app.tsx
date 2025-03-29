@@ -23,4 +23,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
+import { datadogRum } from '@datadog/browser-rum';
+import { reactPlugin } from '@datadog/browser-rum-react';
+
+datadogRum.init({
+    applicationId: process.env.NEXT_PUBLIC_DATADOG_APPLICATION_ID as string,
+    clientToken: process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN as string,
+    site: 'us5.datadoghq.com',
+    service:'tictactoe',
+    env: 'staging',
+    
+    // Specify a version number to identify the deployed version of your application in Datadog
+    // version: '1.0.0',
+    sessionSampleRate:  100,
+    sessionReplaySampleRate: 20,
+    defaultPrivacyLevel: 'mask-user-input',
+    plugins: [reactPlugin({ router: true })],
+});
+
 export default MyApp;
