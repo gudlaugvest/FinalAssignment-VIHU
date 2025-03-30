@@ -7,7 +7,6 @@ test("should have Tic Tac Toe title a title", async ({ page }) => {
 });
 
 
-
 // Should have all games link
 test("should have all games link", async ({ page }) => {
   await page.goto("http://localhost:3000");
