@@ -10,6 +10,7 @@ interface Props {
   readOnly?: boolean;
 }
 
+
 export default function Board({ onMove, moves, readOnly }: Props): JSX.Element {
   const [currentPlayer, setCurrentPlayer] = useState(getWhosTurnItIs(moves));
 
