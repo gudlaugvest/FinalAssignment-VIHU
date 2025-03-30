@@ -2,7 +2,7 @@ import { Game } from "../lib/gameStore";
 import { EMOJI, pepTalks, Sign } from "./constants";
 
 export function calculateWinner(
-  squares: Sign[] | string[]
+  squares: (Sign | null | string)[]
 ): Sign | null | string {
   const lines = [
     [0, 1, 2],
