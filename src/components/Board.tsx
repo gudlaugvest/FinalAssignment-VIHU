@@ -21,6 +21,11 @@ export default function Board({ onMove, moves, readOnly }: Props): JSX.Element {
     if (calculateWinner(movesCopy)) {
       return;
     }
+    const winner = calculateWinner(movesCopy);
+    if (winner === Sign.X || winner === Sign.O || winner === 'Draw') {
+      return;
+    }
+
     if (movesCopy[cellNumber]) {
       return;
     }

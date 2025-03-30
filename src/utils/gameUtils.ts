@@ -20,7 +20,18 @@ export function calculateWinner(
       return squares[a];
     }
   }
+  // Check for draw using isDraw function
+  if (isDraw(squares)) {
+    return 'Draw';
+  }
   return null;
+}
+
+export function isDraw(squares: (Sign | null | string)[]): boolean {
+  const isFilled = (square: Sign | null | string): boolean => 
+    square === Sign.X || square === Sign.O;
+
+  return squares.every(isFilled);
 }
 
 export function getPlayerNameFromSign(

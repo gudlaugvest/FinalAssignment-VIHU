@@ -18,6 +18,7 @@ export function BoardHeader({ game }: Props) {
   if (winner) {
     return <WinnerAnnouncement winner={winner} game={game} />;
   }
+
   return (
     <h1 className={styles.title}>
       {getRandomPepTalk()}
