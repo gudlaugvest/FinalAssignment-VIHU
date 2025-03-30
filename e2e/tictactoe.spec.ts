@@ -2,22 +2,22 @@ import { test, expect } from "@playwright/test";
 
 // Should have Tic Tac Toe title
 test("should have Tic Tac Toe title a title", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   await expect(page).toHaveTitle("Tic Tac Toe");
 });
 
 
 // Should have all games link
 test("should have all games link", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   const allGamesLink = await page.getByText('See all games');
   await allGamesLink.click();
-  await expect(page).toHaveURL("http://localhost:3000/game/list");
+  await expect(page).toHaveURL("http://localhost:3001/game/list");
 });
 
 // Should be able to pick a cell
 test("should be able to pick a cell", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   const player1 = await page.getByPlaceholder(/❌.*Your Name/);
   const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
@@ -34,7 +34,7 @@ test("should be able to pick a cell", async ({ page }) => {
 // Should be able to enter players name
 test("should be able to enter players name", async ({ page }) => {
   // Navigate to the page
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   const player1 = await page.getByPlaceholder(/❌.*Your Name/);
   const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
@@ -45,7 +45,7 @@ test("should be able to enter players name", async ({ page }) => {
 
 // Should be able to start game
 test("should be able to start game", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   const player1 = await page.getByPlaceholder(/❌.*Your Name/);
   const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
@@ -57,7 +57,7 @@ test("should be able to start game", async ({ page }) => {
 
 // Should announce winner when game is won
 test("should announce winner when game is won", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   
   // Set up the game with player names
   const player1Input = await page.getByPlaceholder(/❌.*Your Name/);
@@ -96,7 +96,7 @@ test("should announce winner when game is won", async ({ page }) => {
 
 // Should show draw when game is a draw
 test("should show draw when game is a draw", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3001");
   const player1 = await page.getByPlaceholder(/❌.*Your Name/);
   const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
