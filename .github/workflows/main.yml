@@ -27,11 +27,11 @@ jobs:
       - name: Install Playwright
         run: npm install @playwright/test
 
-      - name: Run Next.js app
-        run: npm run dev
-
       - name: Build Next.js app
         run: npm run build
+      
+      - name: Run Next.js app
+        run: npm run dev
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
