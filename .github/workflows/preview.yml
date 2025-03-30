@@ -42,10 +42,12 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      
+      - name: Start Next.js app
+        run: npm start &
 
       - name: Run E2E tests Playwright
         run: npm run test:e2e
-
         
   mock-tests:
     runs-on: ubuntu-latest
