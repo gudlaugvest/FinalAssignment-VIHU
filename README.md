@@ -5,4 +5,4 @@
 [Deploy Link](https://final-assignment-vihu-8ypwkovyg-gudlaug-vestmanns-projects.vercel.app)
 
 # DataDog Dashboard
-<!-- ![Datadog TODO dashboard](dashboard.png) -->
+![Datadog TODO dashboard](dashboard.png)

@@ -2,8 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   isDraw,
   calculateWinner,
-  getPlayerNameFromSign,
-  getWhosTurnItIs,
+  getPlayerNameFromSign
 } from "../gameUtils";
 import { Sign } from "../constants";
 
