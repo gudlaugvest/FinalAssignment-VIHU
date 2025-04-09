@@ -1,151 +1,173 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+});
+
 // Should have Tic Tac Toe title
-test("should have Tic Tac Toe title a title", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+test("should have Tic Tac Toe title", async ({ page }) => {
   await expect(page).toHaveTitle("Tic Tac Toe");
 });
 
-
 // Should have all games link
 test("should have all games link", async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  const allGamesLink = await page.getByText('See all games');
+  const allGamesLink = page.getByText('See all games');
   await allGamesLink.click();
-  await expect(page).toHaveURL("http://localhost:3000/game/list");
+  await expect(page).toHaveURL("/game/list");
 });
 
 // Should be able to pick a cell
 test("should be able to pick a cell", async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  await page.waitForTimeout(4000);
-  const player1 = await page.getByPlaceholder(/❌.*Your Name/);
-  const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
+  const player1 = page.getByPlaceholder(/❌.*Your Name/);
+  const player2 = page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
   await player2.fill("Player2");
-  const startButton = await page.getByText('Start Game');
-  await startButton.click();
-  const cell = await page.locator('div.Cell_cell__6Ors9').nth(0);
+  await page.getByText('Start Game').click();
+  
+  // Wait for navigation to game page
+  await page.waitForURL(/\/game\/.*/);
+  
+  const cell = page.locator('div.Cell_cell__6Ors9').first();
   await cell.click();
-  await expect(cell).toHaveText('❌');
+  
+  // Wait for the cell to be updated
+  await expect(cell).toHaveText('❌', { timeout: 5000 });
 });
-
-
 
 // Should be able to enter players name
 test("should be able to enter players name", async ({ page }) => {
-  // Navigate to the page
-  await page.goto("http://localhost:3000");
-  const player1 = await page.getByPlaceholder(/❌.*Your Name/);
-  const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
+  // Wait for the input fields to be visible and ready
+  const player1 = page.getByPlaceholder(/❌.*Your Name/);
+  const player2 = page.getByPlaceholder(/⭕.*Opponent Name/);
+  
+  // Wait for the input fields to be visible
+  await expect(player1).toBeVisible();
+  await expect(player2).toBeVisible();
+  
+  // Clear any existing values
+  await player1.clear();
+  await player2.clear();
+  
+  // Fill the input fields
   await player1.fill("Player1");
   await player2.fill("Player2");
-  await expect(player1).toHaveValue("Player1");
-  await expect(player2).toHaveValue("Player2");
+  
+  // Wait for the values to be set
+  await expect(player1).toHaveValue("Player1", { timeout: 10000 });
+  await expect(player2).toHaveValue("Player2", { timeout: 10000 });
 });
 
 // Should be able to start game
 test("should be able to start game", async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  const player1 = await page.getByPlaceholder(/❌.*Your Name/);
-  const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
+  // Set up the game with player names
+  const player1 = page.getByPlaceholder(/❌.*Your Name/);
+  const player2 = page.getByPlaceholder(/⭕.*Opponent Name/);
+  
+  // Wait for input fields to be visible
+  await expect(player1).toBeVisible();
+  await expect(player2).toBeVisible();
+  
+  // Fill in player names
   await player1.fill("Player1");
   await player2.fill("Player2");
-  const startButton = await page.getByText('Start Game');
+  
+  // Click the start button and wait for navigation
+  const startButton = page.getByRole('button', { name: 'Start Game' });
   await startButton.click();
-  await expect(page.locator("text=Player1")).toBeVisible();
+  
+  try {
+    // Wait for navigation with a longer timeout
+    await page.waitForURL(/\/game\/.*/, { timeout: 60000 });
+    
+    // Wait for the game to load
+    await expect(page.locator("text=Player1")).toBeVisible({ timeout: 10000 });
+  } catch (error) {
+    // Log the current URL and page content for debugging
+    console.log('Current URL:', await page.url());
+    console.log('Page content:', await page.content());
+    throw error;
+  }
 });
 
 // Should announce winner when game is won
 test("should announce winner when game is won", async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  
   // Set up the game with player names
-  const player1Input = await page.getByPlaceholder(/❌.*Your Name/);
-  await player1Input.fill("Player1");
-  const player2Input = await page.getByPlaceholder(/⭕.*Opponent Name/);
-  await player2Input.fill("Player2");
+  await page.getByPlaceholder(/❌.*Your Name/).fill("Player1");
+  await page.getByPlaceholder(/⭕.*Opponent Name/).fill("Player2");
+  await page.getByRole('button', { name: 'Start Game' }).click();
   
-  const startButton = await page.getByRole('button', { name: 'Start Game' });
-  await startButton.click();
+  // Wait for navigation to game page
+  await page.waitForURL(/\/game\/.*/);
+  
   const cells = page.locator('.Cell_cell__6Ors9');
   
-  // Player 1 clicks cell 0
+  // Player 1 wins diagonally
   await cells.nth(0).click();
-  // Wait a moment for the move to register
-  await page.waitForTimeout(500);
+  await expect(cells.nth(0)).toHaveText('❌', { timeout: 5000 });
   
-  // Player 2's turn (cell 3)
   await cells.nth(3).click();
-  await page.waitForTimeout(500);
+  await expect(cells.nth(3)).toHaveText('⭕', { timeout: 5000 });
   
-  // Player 1 clicks cell 1
   await cells.nth(1).click();
-  await page.waitForTimeout(500);
+  await expect(cells.nth(1)).toHaveText('❌', { timeout: 5000 });
   
-  // Player 2's turn (cell 4)
   await cells.nth(4).click();
-  await page.waitForTimeout(500);
+  await expect(cells.nth(4)).toHaveText('⭕', { timeout: 5000 });
   
-  // Player 1 clicks cell 2 (winning move)
   await cells.nth(2).click();
-  await page.waitForTimeout(500);
+  await expect(cells.nth(2)).toHaveText('❌', { timeout: 5000 });
 
-  await page.waitForTimeout(1000);
-  await expect(page.getByText('Player1 Won')).toBeVisible();
+  // Wait for the game state to update and check for the winner message
+  // First wait for the game to be in a completed state
+  await page.waitForFunction(() => {
+    const cells = document.querySelectorAll('.Cell_cell__6Ors9');
+    const moves = Array.from(cells).map(cell => cell.textContent);
+    return moves.filter(Boolean).length >= 5; // At least 5 moves have been made
+  }, { timeout: 10000 });
+
+  // Then check for the winner message
+  await expect(page.locator("text=Player1 Won")).toBeVisible({ timeout: 10000 });
 });
 
 // Should show draw when game is a draw
 test("should show draw when game is a draw", async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  const player1 = await page.getByPlaceholder(/❌.*Your Name/);
-  const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
-  await player1.fill("Player1");
-  await player2.fill("Player2");
-  const startButton = await page.getByRole('button', { name: 'Start Game' });
-  await startButton.click();
+  await page.getByPlaceholder(/❌.*Your Name/).fill("Player1");
+  await page.getByPlaceholder(/⭕.*Opponent Name/).fill("Player2");
+  await page.getByRole('button', { name: 'Start Game' }).click();
+  
+  // Wait for navigation to game page
+  await page.waitForURL(/\/game\/.*/);
+  
   const cells = page.locator('.Cell_cell__6Ors9');
   
-
-  // First row
-  // Player 1 clicks cell 0
-  await cells.nth(0).click();
-  await page.waitForTimeout(500);
-
-  // Player 2 clicks cell 2
-  await cells.nth(2).click();
-  await page.waitForTimeout(500);
-
-  // Player 1 clicks cell 1
-  await cells.nth(1).click();
-  await page.waitForTimeout(500);
-
-  // Second row
-  // Player 2 clicks cell 3
-  await cells.nth(3).click();
-  await page.waitForTimeout(500);
-
-  // Player 1 clicks cell 4
-  await cells.nth(4).click();
-  await page.waitForTimeout(500);
-
-  // Player 2 clicks cell 7
-  await cells.nth(7).click();
-  await page.waitForTimeout(500);
-
-
-  // Third row
-  // Player 1 clicks cell 5
-  await cells.nth(5).click();
-  await page.waitForTimeout(500);
-
-  // Player 2 clicks cell 8
-  await cells.nth(8).click();
-  await page.waitForTimeout(500);
-
-  // Player 1 clicks cell 8
-  await cells.nth(6).click();
-  await page.waitForTimeout(500);
+  // Play a draw scenario
+  await cells.nth(0).click(); // P1
+  await expect(cells.nth(0)).toHaveText('❌', { timeout: 5000 });
   
-  await expect(page.getByText('It\'s a draw!')).toBeVisible({ timeout: 10000 });
+  await cells.nth(2).click(); // P2
+  await expect(cells.nth(2)).toHaveText('⭕', { timeout: 5000 });
+  
+  await cells.nth(1).click(); // P1
+  await expect(cells.nth(1)).toHaveText('❌', { timeout: 5000 });
+  
+  await cells.nth(3).click(); // P2
+  await expect(cells.nth(3)).toHaveText('⭕', { timeout: 5000 });
+  
+  await cells.nth(4).click(); // P1
+  await expect(cells.nth(4)).toHaveText('❌', { timeout: 5000 });
+  
+  await cells.nth(7).click(); // P2
+  await expect(cells.nth(7)).toHaveText('⭕', { timeout: 5000 });
+  
+  await cells.nth(5).click(); // P1
+  await expect(cells.nth(5)).toHaveText('❌', { timeout: 5000 });
+  
+  await cells.nth(8).click(); // P2
+  await expect(cells.nth(8)).toHaveText('⭕', { timeout: 5000 });
+  
+  await cells.nth(6).click(); // P1
+  await expect(cells.nth(6)).toHaveText('❌', { timeout: 5000 });
+  
+  // Wait for the game state to update and check for the draw message
+  await expect(page.locator("text=It's a draw!")).toBeVisible({ timeout: 10000 });
 });
