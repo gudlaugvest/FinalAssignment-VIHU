@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../styles/Board.module.css";
 import { Sign } from "../utils/constants";
 import { calculateWinner, getWhosTurnItIs } from "../utils/gameUtils";

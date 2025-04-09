@@ -9,7 +9,7 @@ type Props = {
   readOnly?: boolean;
 };
 
-export default function Cell({ onClick, number, value, readOnly }: Props) {
+export default function Cell({ onClick, value, readOnly }: Props) {
   return (
     <div className={readOnly ? styles.miniCell : styles.cell} onClick={onClick}>
       {value === Sign.X && EMOJI[Sign.X]}
