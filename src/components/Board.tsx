@@ -10,7 +10,6 @@ interface Props {
   readOnly?: boolean;
 }
 
-
 export default function Board({ onMove, moves, readOnly }: Props): JSX.Element {
   const [currentPlayer, setCurrentPlayer] = useState(getWhosTurnItIs(moves));
 
@@ -23,7 +22,7 @@ export default function Board({ onMove, moves, readOnly }: Props): JSX.Element {
       return;
     }
     const winner = calculateWinner(movesCopy);
-    if (winner === Sign.X || winner === Sign.O || winner === 'Draw') {
+    if (winner === Sign.X || winner === Sign.O || winner === "Draw") {
       return;
     }
 

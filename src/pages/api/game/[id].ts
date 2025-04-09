@@ -24,7 +24,7 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
 
         const updatedGame = await updateGame(
           req.query.id.toString(),
-          req.body.moves
+          req.body.moves,
         );
 
         return res.status(200).json(updatedGame);
