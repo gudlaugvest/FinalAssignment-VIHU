@@ -7,7 +7,6 @@ test("should have Tic Tac Toe title a title", async ({ page }) => {
 });
 
 
-
 // Should have all games link
 test("should have all games link", async ({ page }) => {
   await page.goto("http://localhost:3000");
@@ -19,6 +18,7 @@ test("should have all games link", async ({ page }) => {
 // Should be able to pick a cell
 test("should be able to pick a cell", async ({ page }) => {
   await page.goto("http://localhost:3000");
+  await page.waitForTimeout(4000);
   const player1 = await page.getByPlaceholder(/❌.*Your Name/);
   const player2 = await page.getByPlaceholder(/⭕.*Opponent Name/);
   await player1.fill("Player1");
