@@ -2,7 +2,7 @@ import { Game } from "../lib/gameStore";
 import { EMOJI, pepTalks, Sign } from "./constants";
 
 export function calculateWinner(
-  squares: (Sign | null | string)[]
+  squares: (Sign | null | string)[],
 ): Sign | null | string {
   const lines = [
     [0, 1, 2],
@@ -22,13 +22,13 @@ export function calculateWinner(
   }
   // Check for draw using isDraw function
   if (isDraw(squares)) {
-    return 'Draw';
+    return "Draw";
   }
   return null;
 }
 
 export function isDraw(squares: (Sign | null | string)[]): boolean {
-  const isFilled = (square: Sign | null | string): boolean => 
+  const isFilled = (square: Sign | null | string): boolean =>
     square === Sign.X || square === Sign.O;
 
   return squares.every(isFilled);
@@ -36,7 +36,7 @@ export function isDraw(squares: (Sign | null | string)[]): boolean {
 
 export function getPlayerNameFromSign(
   sign: Sign | string,
-  game: Game
+  game: Game,
 ): Sign | string {
   if (sign === Sign.O) {
     return `${EMOJI[sign]} ${game?.player2_name} `;

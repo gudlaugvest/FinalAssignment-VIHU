@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": ["@gudlaugvest/no-moment"],
+  "rules": {
+    "@gudlaugvest/no-moment/no-moment": "error"
+  }
 }
