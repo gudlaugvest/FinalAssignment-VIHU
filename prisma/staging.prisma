@@ -7,8 +7,8 @@ generator client {
 
 datasource db {
   provider          = "postgres"
-  url               = env("STAGING_DATABASE_URL")
-  directUrl         = env("STAGING_DIRECT_URL")
+  url               = env("NEXT_PUBLIC_DATABASE_URL_STAGING")
+  directUrl         = env("NEXT_PUBLIC_DIRECT_URL_STAGING")
 }
 
 model Game {
