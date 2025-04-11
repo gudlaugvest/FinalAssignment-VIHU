@@ -42,64 +42,19 @@ export default function Board({ onMove, moves, readOnly }: Props): JSX.Element {
     <div className={styles.container}>
       <div>
         <div>
-          <Cell
-            readOnly={readOnly}
-            value={moves[0]}
-            number={0}
-            onClick={() => handleClick(0)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[1]}
-            number={1}
-            onClick={() => handleClick(1)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[2]}
-            number={2}
-            onClick={() => handleClick(2)}
-          />
+          <Cell readOnly={readOnly} value={moves[0]} number={0} onClick={() => handleClick(0)} />
+          <Cell readOnly={readOnly} value={moves[1]} number={1} onClick={() => handleClick(1)} />
+          <Cell readOnly={readOnly} value={moves[2]} number={2} onClick={() => handleClick(2)} />
         </div>
         <div>
-          <Cell
-            readOnly={readOnly}
-            value={moves[3]}
-            number={3}
-            onClick={() => handleClick(3)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[4]}
-            number={4}
-            onClick={() => handleClick(4)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[5]}
-            number={5}
-            onClick={() => handleClick(5)}
-          />
+          <Cell readOnly={readOnly} value={moves[3]} number={3} onClick={() => handleClick(3)} />
+          <Cell readOnly={readOnly} value={moves[4]} number={4} onClick={() => handleClick(4)} />
+          <Cell readOnly={readOnly} value={moves[5]} number={5} onClick={() => handleClick(5)} />
         </div>
         <div>
-          <Cell
-            readOnly={readOnly}
-            value={moves[6]}
-            number={6}
-            onClick={() => handleClick(6)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[7]}
-            number={7}
-            onClick={() => handleClick(7)}
-          />
-          <Cell
-            readOnly={readOnly}
-            value={moves[8]}
-            number={8}
-            onClick={() => handleClick(8)}
-          />
+          <Cell readOnly={readOnly} value={moves[6]} number={6} onClick={() => handleClick(6)} />
+          <Cell readOnly={readOnly} value={moves[7]} number={7} onClick={() => handleClick(7)} />
+          <Cell readOnly={readOnly} value={moves[8]} number={8} onClick={() => handleClick(8)} />
         </div>
       </div>
     </div>

@@ -1,12 +1,6 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "prettier"
-  ],
-  "plugins": [
-    "@gudlaugvest/no-moment",
-    "@typescript-eslint"
-  ],
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["@gudlaugvest/no-moment", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "rules": {
     "@gudlaugvest/no-moment/no-moment": "error",

@@ -33,7 +33,7 @@ const GamePage = () => {
       <div className={styles.grid}>
         <Board
           moves={game.moves}
-          onMove={async (moves) => {
+          onMove={async moves => {
             const { data } = await axios.put("/api/game/" + router.query.id, {
               moves,
             });

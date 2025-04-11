@@ -1,9 +1,7 @@
 import { Game } from "../lib/gameStore";
 import { EMOJI, pepTalks, Sign } from "./constants";
 
-export function calculateWinner(
-  squares: (Sign | null | string)[],
-): Sign | null | string {
+export function calculateWinner(squares: (Sign | null | string)[]): Sign | null | string {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -34,10 +32,7 @@ export function isDraw(squares: (Sign | null | string)[]): boolean {
   return squares.every(isFilled);
 }
 
-export function getPlayerNameFromSign(
-  sign: Sign | string,
-  game: Game,
-): Sign | string {
+export function getPlayerNameFromSign(sign: Sign | string, game: Game): Sign | string {
   if (sign === Sign.O) {
     return `${EMOJI[sign]} ${game?.player2_name} `;
   } else if (sign === Sign.X) {
@@ -47,8 +42,8 @@ export function getPlayerNameFromSign(
 }
 
 export function getWhosTurnItIs(moves: Sign[] | string[]): Sign | string {
-  const numberOfX = moves.filter((move) => move === Sign.X).length;
-  const numberOfO = moves.filter((move) => move === Sign.O).length;
+  const numberOfX = moves.filter(move => move === Sign.X).length;
+  const numberOfO = moves.filter(move => move === Sign.O).length;
   if (numberOfX === 0) {
     return Sign.X;
   }

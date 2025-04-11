@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createGame } from "../../lib/gameStore";
 
-export default async function newGame(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export default async function newGame(req: NextApiRequest, res: NextApiResponse) {
   const { playerName, secondPlayerName } = req.body;
   try {
     const game = await createGame(playerName, secondPlayerName);

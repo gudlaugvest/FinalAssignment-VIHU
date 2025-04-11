@@ -22,10 +22,7 @@ export default async function game(req: NextApiRequest, res: NextApiResponse) {
           return res.status(400).send("Id parameter required.");
         }
 
-        const updatedGame = await updateGame(
-          req.query.id.toString(),
-          req.body.moves,
-        );
+        const updatedGame = await updateGame(req.query.id.toString(), req.body.moves);
 
         return res.status(200).json(updatedGame);
       } catch (error) {

@@ -28,10 +28,7 @@ export function GameRow({ game }: Props) {
             </div>
           </div>
           <div className={styles.dateFromNow}>
-            Created:{" "}
-            {game.createdAt
-              ? formatDistanceToNow(new Date(game.createdAt))
-              : "unknown"}{" "}
+            Created: {game.createdAt ? formatDistanceToNow(new Date(game.createdAt)) : "unknown"}{" "}
             ago
             {/* Created: {moment(game.createdAt).fromNow()} */}
           </div>

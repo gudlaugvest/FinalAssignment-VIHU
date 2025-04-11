@@ -11,10 +11,7 @@ export interface Game {
 
 const EMPTY_MOVES = Array(9).fill("");
 
-export async function createGame(
-  playerName: string,
-  secondPlayerName: string,
-): Promise<Game> {
+export async function createGame(playerName: string, secondPlayerName: string): Promise<Game> {
   await prisma.$connect();
 
   const game = await prisma.game.create({
@@ -32,10 +29,7 @@ export async function getGameById(gameId: string): Promise<Game | null> {
   return await prisma.game.findUnique({ where: { id: gameId } });
 }
 
-export async function updateGame(
-  gameId: string,
-  moves: string[],
-): Promise<Game> {
+export async function updateGame(gameId: string, moves: string[]): Promise<Game> {
   await prisma.$connect();
   return await prisma.game.update({
     where: {

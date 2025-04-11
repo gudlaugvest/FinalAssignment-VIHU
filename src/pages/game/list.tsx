@@ -18,7 +18,7 @@ const GameList = () => {
     <div>
       <h1>🎱 All games</h1>
       <div>
-        {gameList?.map((game) => {
+        {gameList?.map(game => {
           return <GameRow key={game.id} game={game} />;
         })}
       </div>

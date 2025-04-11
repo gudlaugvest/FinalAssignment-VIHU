@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       <div className={styles.grid}>
         <form
           className={styles.form}
-          onSubmit={async (event) => {
+          onSubmit={async event => {
             event.preventDefault();
             setIsCreating(true);
             try {
@@ -49,22 +49,18 @@ const Home: NextPage = () => {
             className={styles.input}
             value={playerName}
             placeholder={`${EMOJI[Sign.X]} Your Name`}
-            onChange={(event) => setPlayerName(event.target.value)}
+            onChange={event => setPlayerName(event.target.value)}
             required
           />
           <input
             className={styles.input}
             value={secondPlayerName}
             placeholder={`${EMOJI[Sign.O]} Opponent Name`}
-            onChange={(event) => setSecondPlayerName(event.target.value)}
+            onChange={event => setSecondPlayerName(event.target.value)}
             required
           />
 
-          <button
-            className={styles.startButton}
-            disabled={isCreating}
-            type="submit"
-          >
+          <button className={styles.startButton} disabled={isCreating} type="submit">
             Start Game
           </button>
         </form>
