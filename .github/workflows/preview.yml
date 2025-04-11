@@ -23,6 +23,7 @@ jobs:
         run: |
           echo "NODE_ENV=test" >> .env
           echo "NEXT_PUBLIC_DATABASE_URL_STAGING=${{ secrets.STAGING_DATABASE_URL }}" >> .env
+          echo "NEXT_PUBLIC_DIRECT_URL_STAGING=${{ secrets.STAGING_DIRECT_URL }}" >> .env
       - name: Setup Prisma
         run: |
           npx prisma generate --schema=prisma/staging.prisma
@@ -51,6 +52,7 @@ jobs:
         run: |
           echo "NODE_ENV=test" >> .env
           echo "NEXT_PUBLIC_DATABASE_URL_STAGING=${{ secrets.STAGING_DATABASE_URL }}" >> .env
+          echo "NEXT_PUBLIC_DIRECT_URL_STAGING=${{ secrets.STAGING_DIRECT_URL }}" >> .env
           
       - name: Setup Prisma
         run: |
@@ -91,7 +93,8 @@ jobs:
       - name: Setup Test Environment
         run: |
           echo "NODE_ENV=test" >> .env
-          echo "NEXT_PUBLIC_DATABASE_URL_STAGING=${{secrets.STAGING_DATABASE_URL}}" >> .env
+          echo "NEXT_PUBLIC_DATABASE_URL_STAGING=${{ secrets.STAGING_DATABASE_URL }}" >> .env
+          echo "NEXT_PUBLIC_DIRECT_URL_STAGING=${{ secrets.STAGING_DIRECT_URL }}" >> .env
 
       - name: Setup Prisma
         run: |
